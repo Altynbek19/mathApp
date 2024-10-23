@@ -116,53 +116,103 @@ public class HelloController {
     }
 
     // Метод для решения системы уравнений методом Гаусса с пошаговым выводом
-    private double[] gaussElimination(double[][] A) {
-        int n = A.length;
-        int m = A[0].length;
+private double[] gaussElimination(double[][] A) {
+    int n = A.length;
+    int m = A[0].length;
 
-        // Прямой ход метода Гаусса
-        for (int i = 0; i < n; i++) {
-            // Находим главный элемент
-            int maxRow = i;
-            for (int k = i + 1; k < n; k++) {
-                if (Math.abs(A[k][i]) > Math.abs(A[maxRow][i])) {
-                    maxRow = k;
-                }
+    // Прямой ход метода Гаусса
+    for (int i = 0; i < n; i++) {
+        // Находим главный элемент
+        int maxRow = i;
+        for (int k = i + 1; k < n; k++) {
+            if (Math.abs(A[k][i]) > Math.abs(A[maxRow][i])) {
+                maxRow = k;
             }
-
-            // Меняем строки
-            double[] temp = A[i];
-            A[i] = A[maxRow];
-            A[maxRow] = temp;
-
-            // Проверка на деление на ноль
-            if (Math.abs(A[i][i]) < 1e-10) {
-                outputArea.appendText("Ошибка: деление на ноль.\n");
-                return null;
-            }
-
-            // Приведение к треугольному виду
-            for (int k = i + 1; k < n; k++) {
-                double factor = A[k][i] / A[i][i];
-                for (int j = i; j < m; j++) {
-                    A[k][j] -= factor * A[i][j];
-                }
-            }
-
-            // Вывод промежуточной матрицы
-            outputArea.appendText("\nПосле преобразования строки " + (i + 1) + ":\n");
-            printMatrix(A, n, m);
         }
 
-        // Обратный ход
-        double[] x = new double[n];
-        for (int i = n - 1; i >= 0; i--) {
+        // Меняем строки
+        double[] temp = A[i];
+        A[i] = A[maxRow];
+        A[maxRow] = temp;
+
+        // Проверка на деление на ноль
+        if (Math.abs(A[i][i]) < 1e-10) {
+            // Пропускаем нулевую строку, это может быть свободная переменная
+            continue;
+        }
+
+        // Приведение к треугольному виду
+        for (int k = i + 1; k < n; k++) {
+            double factor = A[k][i] / A[i][i];
+            for (int j = i; j < m; j++) {
+                A[k][j] -= factor * A[i][j];
+            }
+        }
+
+        // Вывод промежуточной матрицы
+        outputArea.appendText("\nПосле преобразования строки " + (i + 1) + ":\n");
+        printMatrix(A, n, m);
+    }
+
+    // Проверка на наличие решений
+    boolean infiniteSolutions = false;
+    for (int i = 0; i < n; i++) {
+        boolean isZeroRow = true;
+        for (int j = 0; j < m - 1; j++) {  // Проверяем только коэффициенты
+            if (Math.abs(A[i][j]) > 1e-10) {
+                isZeroRow = false;
+                break;
+            }
+        }
+        if (isZeroRow) {
+            if (Math.abs(A[i][m - 1]) > 1e-10) {
+                // Если свободный член не равен нулю, то система несовместна
+                outputArea.appendText("Система не имеет решений.\n");
+                return null;
+            } else {
+                // Нулевая строка с нулевым свободным членом — бесконечное количество решений
+                infiniteSolutions = true;
+            }
+        }
+    }
+
+    // Если мы дошли до этого места, система либо имеет одно решение, либо бесконечное количество
+    double[] x = new double[n];
+    boolean[] isFreeVariable = new boolean[n];  // Отслеживаем свободные переменные
+
+    for (int i = n - 1; i >= 0; i--) {
+        if (Math.abs(A[i][i]) > 1e-10) {
+            // Если элемент не равен 0, вычисляем переменную
             x[i] = A[i][m - 1] / A[i][i];
             for (int j = i - 1; j >= 0; j--) {
                 A[j][m - 1] -= A[j][i] * x[i];
             }
+        } else {
+            // Свободная переменная, можно присвоить любое значение, например, 0
+            x[i] = 0;
+            isFreeVariable[i] = true;
         }
-
-        return x;
     }
+
+    // Выводим результат
+    if (infiniteSolutions) {
+        outputArea.appendText("\nСистема имеет бесконечное количество решений. Одно из решений:\n");
+        for (int i = 0; i < x.length; i++) {
+            if (isFreeVariable[i]) {
+                outputArea.appendText("x" + (i + 1) + " = любое значение (присвоено 0)\n");
+            } else {
+                outputArea.appendText("x" + (i + 1) + " = " + x[i] + "\n");
+            }
+        }
+    } else {
+        outputArea.appendText("\nСистема имеет одно решение:\n");
+        for (int i = 0; i < x.length; i++) {
+            outputArea.appendText("x" + (i + 1) + " = " + x[i] + "\n");
+        }
+    }
+
+    return x;
+}
+
+
 }
