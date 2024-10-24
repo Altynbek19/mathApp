@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="CENTER" hgap="20" style="-fx-background-color: #e9ecef; -fx-padding: 20;" vgap="20" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23" fx:controller="org.example.mathapp.HelloController">
+<GridPane alignment="CENTER" hgap="20" prefHeight="859.0" prefWidth="1185.0" style="-fx-background-color: #e9ecef; -fx-padding: 20;" vgap="20" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mathapp.HelloController">
 
-  <Label style="-fx-font-size: 20px; -fx-text-fill: #343a40; -fx-font-weight: bold; -fx-alignment: CENTER;" text="Решение систем уравнений методом Гаусса" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+  <Label style="-fx-font-size: 20px; -fx-text-fill: #343a40; -fx-font-weight: bold; -fx-alignment: CENTER;" text="Решение систем уравнений методом Гаусса" GridPane.columnSpan="2" />
 
   <Label style="-fx-font-size: 16px; -fx-text-fill: #495057; -fx-font-weight: bold;" text="Введите количество строк (n):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
   <TextField fx:id="inputN" style="-fx-font-size: 16px; -fx-padding: 10; -fx-border-color: #ced4da; -fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -20,16 +20,28 @@
 
   <Button onAction="#onCreateMatrixClick" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10; -fx-background-radius: 5;" text="Создать матрицу" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-  <Label style="-fx-font-size: 16px; -fx-text-fill: #495057; -fx-font-weight: bold;" text="Введите коэффициенты для каждой строки (через пробел):" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-  <TextArea fx:id="matrixInputArea" prefColumnCount="30" prefRowCount="5" style="-fx-font-size: 16px; -fx-padding: 10; -fx-border-color: #ced4da; -fx-background-color: white;" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+  <Label prefHeight="20.0" prefWidth="605.0" style="-fx-font-size: 16px; -fx-text-fill: #495057; -fx-font-weight: bold;" text="Введите коэффициенты для каждой строки (через пробел):" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+  <TextArea fx:id="matrixInputArea" prefColumnCount="30" prefHeight="114.0" prefRowCount="5" prefWidth="750.0" style="-fx-font-size: 16px; -fx-padding: 10; -fx-border-color: #ced4da; -fx-background-color: white;" GridPane.columnSpan="2" GridPane.rowIndex="5" />
 
   <Button onAction="#onSolveButtonClick" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10; -fx-background-radius: 5;" text="Решить" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
   <Label style="-fx-font-size: 16px; -fx-text-fill: #495057; -fx-font-weight: bold;" text="Результат:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-  <TextArea fx:id="outputArea" prefColumnCount="30" prefRowCount="10" style="-fx-font-size: 16px; -fx-padding: 10; -fx-border-color: #ced4da; -fx-background-color: white;" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+  <TextArea fx:id="outputArea" prefColumnCount="30" prefRowCount="10" style="-fx-font-size: 16px; -fx-padding: 10; -fx-border-color: #ced4da; -fx-background-color: white;" GridPane.columnSpan="2" GridPane.rowIndex="9" />
+   <Label prefHeight="24.0" prefWidth="417.0" style="-fx-font-size: 20px; -fx-text-fill: #343a40; -fx-font-weight: bold; -fx-alignment: CENTER;" text="Нахождение обратной матрицы" GridPane.columnIndex="2" GridPane.columnSpan="2" />
+   <Label prefHeight="20.0" prefWidth="465.0" style="-fx-font-size: 16px; -fx-text-fill: #495057; -fx-font-weight: bold;" text="Введите коэффициенты для каждой строки (через пробел):" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+   <TextArea fx:id="inverseMatrixInputArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+   <Label prefHeight="20.0" prefWidth="414.0" style="-fx-font-size: 16px; -fx-text-fill: #495057; -fx-font-weight: bold;" text="Введите количество строк (n):" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+   <TextField fx:id="inverseInputN" style="-fx-font-size: 16px; -fx-padding: 10; -fx-border-color: #ced4da; -fx-background-color: white;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+   <Button onAction="#onFindInverseMatrixClick" style="-fx-background-color: #f2ee00; -fx-text-fill: red; -fx-font-size: 16px; -fx-padding: 10; -fx-background-radius: 5;" text="Найти обратную матрицу" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+   <Label prefHeight="20.0" prefWidth="424.0" style="-fx-font-size: 16px; -fx-text-fill: #495057; -fx-font-weight: bold;" text="Шаги решения обратной матрицы" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+   <TextArea fx:id="inverseOutputArea" prefColumnCount="30" prefRowCount="10" style="-fx-font-size: 16px; -fx-padding: 10; -fx-border-color: #ced4da; -fx-background-color: white;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+   <TextArea fx:id="calculationOutputArea" prefColumnCount="30" prefRowCount="10" style="-fx-font-size: 16px; -fx-padding: 10; -fx-border-color: #ced4da; -fx-background-color: white;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="9" />
+   <Button onAction="#onTransposeMatrixClick" prefHeight="22.0" prefWidth="249.0" style="-fx-background-color: #f2ee00; -fx-text-fill: red; -fx-font-size: 16px; -fx-padding: 10; -fx-background-radius: 5;" text="Транспонировать матрицу" GridPane.columnIndex="3" GridPane.rowIndex="8" />
    <columnConstraints>
       <ColumnConstraints halignment="LEFT" />
       <ColumnConstraints halignment="RIGHT" />
+      <ColumnConstraints halignment="RIGHT" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints halignment="RIGHT" minWidth="10.0" prefWidth="100.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints />
@@ -40,6 +52,7 @@
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
       <RowConstraints />
    </rowConstraints>
 </GridPane>
